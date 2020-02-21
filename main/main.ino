@@ -1,4 +1,4 @@
-// Arduino Light Show - Patrick and Isaac
+jufnbfwubfw// Arduino Light Show - Patrick and Isaac
 
 // Pin variables so you can easily change
 static int RGB_RED = 12
