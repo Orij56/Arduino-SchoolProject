@@ -1,33 +1,40 @@
 // Arduino Light Show - Patrick and Isaac
 
+
 // Pin variables so you can easily change
-static int RGB_RED = 6;
-static int RGB_BLUE = 11;
-static int RGB_GREEN = 10;
-int joe = 0;
-static int RED_1 = 9;
-static int RED_2 = 8;
+const int RGB_RED = 11;
+const int RGB_GREEN = 10;
+const int RGB_BLUE = 9;
 
-static int SPEAKER = 7;
-
+const int RED_1 = 7;
+const int RED_2 = 6;
+const int BUTTON = 5;
 
 void setup() {
   pinMode(RGB_RED, OUTPUT);
   pinMode(RGB_GREEN, OUTPUT);
   pinMode(RGB_BLUE, OUTPUT);
-  pinMode(RED_1, OUTPUT);
-  pinMode(RED_2, OUTPUT);
-  pinMode(SPEAKER, OUTPUT);
   Serial.begin(9600);
 }
 
+// Static flash fuction to prevent code repetition
+static void flash(int pin, int wait) {
+  digitalWrite(pin, 1);
+  delay(wait);
+  digitalWrite(pin, 0);
+}
+
+// Static function to display rgb values
+static void rgbDisplay(int r, int g, int b){
+  analogWrite(RGB_RED, r);
+  analogWrite(RGB_GREEN, g);
+  analogWrite(RGB_BLUE, b);
+  
+}
+
 void loop() {
-  analogWrite(RGB_RED, joe);
-  joe = joe + 1;
-  if (joe>255) {
-    joe = 0;
-  }
-  Serial.write(joe);
-  analogWrite(RGB_BLUE, 0);
-  analogWrite(RGB_GREEN, 0);
+  rgbDisplay(128, 0, 255);
+  flash(RED_1, 500);
+  delay(100);
+  flash(RED_2, 500);
 }
