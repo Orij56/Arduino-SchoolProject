@@ -1,5 +1,5 @@
 // Arduino Light Show - Patrick and Isaac
-
+#include <time.h>
 
 // Pin variables so you can easily change
 const int RGB_RED = 11;
@@ -10,11 +10,19 @@ const int RED_1 = 7;
 const int RED_2 = 6;
 const int BUTTON = 5;
 
+int buttonstate = 0;
+int counter = 0;
+int r = rand() % 255, g = rand() % 255, b = rand() % 255;
+
 void setup() {
   pinMode(RGB_RED, OUTPUT);
   pinMode(RGB_GREEN, OUTPUT);
   pinMode(RGB_BLUE, OUTPUT);
+  pinMode(RED_1, OUTPUT);
+  pinMode(RED_2, OUTPUT);
+  pinMode(BUTTON, INPUT_PULLUP);
   Serial.begin(9600);
+  srand(time(NULL));
 }
 
 // Static flash fuction to prevent code repetition
@@ -33,8 +41,19 @@ static void rgbDisplay(int r, int g, int b){
 }
 
 void loop() {
-  rgbDisplay(128, 0, 255);
-  flash(RED_1, 500);
-  delay(100);
-  flash(RED_2, 500);
+  buttonstate = digitalRead(BUTTON);
+  rgbDisplay(r, g, b);
+  if (buttonstate == LOW) {
+      flash(RED_1, 500);
+      delay(100);
+      flash(RED_2, 500);
+      r = rand() % 255, g = rand() % 255, b = rand() % 255;
+  } else{
+    counter ++;
+    if (counter == 200 ) {
+      r = rand() % 255, g = rand() % 255, b = rand() % 255;
+      counter = 0;
+    }
+  Serial.println(counter);
+  }
 }
