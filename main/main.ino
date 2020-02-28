@@ -44,16 +44,15 @@ void loop() {
   buttonstate = digitalRead(BUTTON);
   rgbDisplay(r, g, b);
   if (buttonstate == LOW) {
-      flash(RED_1, 500);
+      flash(RED_1, 100);
       delay(100);
-      flash(RED_2, 500);
+      flash(RED_2, 100);
       r = rand() % 255, g = rand() % 255, b = rand() % 255;
   } else{
     counter ++;
-    if (counter == 200 ) {
+    if (counter == 20000 ) {
       r = rand() % 255, g = rand() % 255, b = rand() % 255;
       counter = 0;
     }
-  Serial.println(counter);
   }
 }
