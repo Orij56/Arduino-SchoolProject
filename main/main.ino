@@ -40,15 +40,19 @@ static void rgbDisplay(int r, int g, int b){
 }
 
 void loop() {
-  rgbDisplay(r, g, b);
-  if (state == 0 && digitalRead(BUTTON) == LOW) {
+  if (digitalRead(BUTTON) == LOW) {
+    while (digitalRead(BUTTON) == LOW) {
+      ;
+    }
+    void loop() {
+      rgbDisplay(r, g, b)
       flash(RED_1, 200);
       delay(100);
       flash(RED_2, 200);
       r = rand() % 255, g = rand() % 255, b = rand() % 255;
-      state = 1;
+      if (digitalRead(BUTTON) == LOW) {
+        break;
+      }
+    }
   } 
-  if (state == 1 && digitalRead(BUTTON) == HIGH) {
-    state = 0;
-  }
 }
